@@ -15,9 +15,7 @@ const SignUp: React.FC = () => {
   return (
     <div className="flex flex-col justify-center items-center h-[600px] bg-white rounded p-20 shadow-lg">
       <div className="flex flex-col items-center gap-2">
-        <h1 className="text-4xl font-bold mb-10 text-center absolute top-20">
-          Sign Up
-        </h1>
+        <h1 className="text-4xl font-bold mb-10 text-center ">Sign up</h1>
         <div className="mb-10">
           <label htmlFor="user-type" className="mr-2">
             User Type:
