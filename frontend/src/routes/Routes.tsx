@@ -15,26 +15,29 @@ import VeterinarianDetail from 'pages/veterinarians/VeterinarianDetail'
 import Pets from 'pages/pets/Pets'
 import PetDetail from 'pages/pets/PetDetail'
 import NotFound from 'pages/notFound/NotFound'
+import MainLayout from 'layouts/MainLayout'
 
 const Routes: React.FC = () => {
   return (
     <Router>
-      <Switch>
-        <Route path="" element={<Welcome />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/users/:userId" element={<UserDetail />} />
-        <Route path="/veterinarians" element={<Veterinarians />} />
-        <Route
-          path="/veterinarians/:veterinaryId"
-          element={<VeterinarianDetail />}
-        />
-        <Route path="/pets" element={<Pets />} />
-        <Route path="/pets/:petId" element={<PetDetail />} />
-        <Route path="*" element={<NotFound />} />
-      </Switch>
+      <MainLayout>
+        <Switch>
+          <Route path="" element={<Welcome />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/users/:userId" element={<UserDetail />} />
+          <Route path="/veterinarians" element={<Veterinarians />} />
+          <Route
+            path="/veterinarians/:veterinaryId"
+            element={<VeterinarianDetail />}
+          />
+          <Route path="/pets" element={<Pets />} />
+          <Route path="/pets/:petId" element={<PetDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Switch>
+      </MainLayout>
     </Router>
   )
 }

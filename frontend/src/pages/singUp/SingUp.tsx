@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const SignUp: React.FC = () => {
   const [userType, setUserType] = useState('')
-
+  const navigate = useNavigate()
   const handleUserTypeChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -42,10 +43,19 @@ const SignUp: React.FC = () => {
             />
           </div>
           <div className="mb-4 flex flex-col gap-2">
-            <label htmlFor="id">Document number:</label>
+            <label htmlFor="id">Password:</label>
+            <input
+              type="password"
+              id="id"
+              className={`border border-gray-400 rounded py-2 px-4 ${opacity}`}
+              disabled={!userType}
+            />
+          </div>
+          <div className="mb-4 flex flex-col gap-2">
+            <label htmlFor="Identification">Identification:</label>
             <input
               type="text"
-              id="id"
+              id="Identification"
               className={`border border-gray-400 rounded py-2 px-4 ${opacity}`}
               disabled={!userType}
             />
@@ -65,6 +75,7 @@ const SignUp: React.FC = () => {
         </div>
         {/* if sign up is success (fetch), redirect to home page */}
         <button
+          onClick={() => navigate('/login')}
           disabled={!userType}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >

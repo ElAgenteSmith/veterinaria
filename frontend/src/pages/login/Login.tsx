@@ -1,8 +1,10 @@
 import React, { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Login: React.FC = () => {
   const userNameRef = useRef<HTMLInputElement>(null)
   const documentNumberRef = useRef<HTMLInputElement>(null)
+  const navigate = useNavigate()
 
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault()
@@ -15,8 +17,7 @@ const Login: React.FC = () => {
       return
     }
     //call user session using redux store
-    console.log('User Name:', userName)
-    console.log('Document Number:', documentNumber)
+    navigate('/home')
   }
 
   return (
@@ -35,12 +36,12 @@ const Login: React.FC = () => {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="document-number" className="mr-2">
-            Document Number:
+          <label htmlFor="password" className="mr-2">
+            Password:
           </label>
           <input
-            type="number"
-            id="document-number"
+            type="password"
+            id="password"
             ref={documentNumberRef}
             className="border border-gray-400 rounded py-2 px-4"
           />
