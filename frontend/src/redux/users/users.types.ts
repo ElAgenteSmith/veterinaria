@@ -1,6 +1,7 @@
-export interface User {
+export interface UserType {
+  id: number
+  name: string
   identification: string
-  fullName: string
-  startDate?: Date
+  dateOfAdmission?: Date
   direction: string
 }
