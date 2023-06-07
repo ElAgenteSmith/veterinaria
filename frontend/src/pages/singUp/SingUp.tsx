@@ -14,7 +14,7 @@ const SignUp: React.FC = () => {
   const adminOpacity = userType === 'admin' ? 'opacity-50' : ''
 
   return (
-    <div className="flex flex-col justify-center items-center h-[600px] bg-white rounded p-20 shadow-lg">
+    <div className="flex flex-col items-center justify-center  h-full p-10 gap-3  mt-20 border border-gray-500 rounded-md shadow-md hover:bg-white">
       <div className="flex flex-col items-center gap-2">
         <h1 className="text-4xl font-bold mb-10 text-center ">Sign up</h1>
         <div className="mb-10">

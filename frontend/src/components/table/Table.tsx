@@ -2,8 +2,11 @@ import React from 'react'
 import { table } from './table.const'
 import { TableProps } from './table.types'
 import { getColumnValues } from 'utils/columnValues'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const Table: React.FC<TableProps> = ({ records, type, onDelete }) => {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
   return (
     <table className="min-w-full border border-gray-300 ">
       <thead>
@@ -23,7 +26,11 @@ const Table: React.FC<TableProps> = ({ records, type, onDelete }) => {
         {records.map((record, index) => (
           <tr key={index} className="border-b cursor-pointer hover:bg-blue-300">
             {getColumnValues(record, type).map((value, index) => (
-              <td key={index} className="py-2 px-4">
+              <td
+                key={index}
+                className="py-2 px-4"
+                onClick={() => navigate(`${pathname}/${record.id}`)}
+              >
                 {value instanceof Date
                   ? value.toDateString()
                   : value?.toString()}

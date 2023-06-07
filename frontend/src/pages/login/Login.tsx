@@ -21,7 +21,7 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center  h-full p-10 gap-3  mt-20 border border-gray-500 rounded-md shadow-md hover:bg-white">
       <h1 className="text-4xl font-bold mb-4">Log In</h1>
       <form onSubmit={handleLogin} className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
