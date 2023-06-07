@@ -22,7 +22,7 @@ public class AtencionPrestadaController {
 
     @PostMapping
     public ResponseEntity<AtencionPrestada> guardarAtencionPrestada(@RequestBody AtencionPrestada atencionPrestada) {
-        //atencionPrestada.setServicio(validarServicio(atencionPrestada.getServicio()));
+        atencionPrestada.setServicio(validarServicio(atencionPrestada.getServicio()));
         AtencionPrestada nuevaAtencionPrestada = atencionPrestadaService.guardarAtencionPrestada(atencionPrestada);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaAtencionPrestada);
     }
