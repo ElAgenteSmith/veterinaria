@@ -67,9 +67,8 @@ CREATE TABLE RelacionUsuarioMascota (
 
 -- Crear tabla UsuariosAutenticacion
 CREATE TABLE UsuariosAutenticacion (
-  UsuarioID INT AUTO_INCREMENT,
   NombreUsuario VARCHAR(50),
   Password VARCHAR(50),
   Rol ENUM('Administrador', 'Usuario'),
-  PRIMARY KEY (UsuarioID)
+  PRIMARY KEY (NombreUsuario)
 );
