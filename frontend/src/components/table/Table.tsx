@@ -9,7 +9,7 @@ const Table: React.FC<TableProps> = ({ records, type, onDelete }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   return (
-    <table className="min-w-full border border-gray-300 ">
+    <table>
       <thead>
         <tr>
           {table[type].map((column, index) => (
@@ -29,7 +29,7 @@ const Table: React.FC<TableProps> = ({ records, type, onDelete }) => {
             {getColumnValues(record, type).map((value, index) => (
               <td
                 key={index}
-                className="py-2 px-4"
+                className="py-2 px-4 "
                 onClick={() => navigate(`${pathname}/${record.id}`)}
               >
                 {value instanceof Date

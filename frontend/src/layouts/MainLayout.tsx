@@ -11,7 +11,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className="bg-gray-100 min-h-screen">
       {!hideHeader && <Header userName="Kanmus" type="admin" />}
-      <div className="container mx-auto p-4  flex justify-center items-center">
+      <div className="container mx-auto p-4  flex justify-center items-center ">
         {children}
       </div>
     </div>

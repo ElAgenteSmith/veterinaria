@@ -30,7 +30,7 @@ const Routes: React.FC = () => {
           <Route path="/users/:userId" element={<UserDetail />} />
           <Route path="/veterinarians" element={<Veterinarians />} />
           <Route
-            path="/veterinarians/:veterinaryId"
+            path="/veterinarians/:veterinarianId"
             element={<VeterinarianDetail />}
           />
           <Route path="/pets" element={<Pets />} />
