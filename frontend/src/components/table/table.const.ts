@@ -1,7 +1,7 @@
 export const table: tableType = {
-  user: ['Name', 'Identification', 'Date of admission', 'Direction'],
-  veterinarian: ['Name', 'Identification', 'Registration date'],
-  pet: ['Name', 'Breed', 'Age'],
+  user: ['Nombre', 'Cedula', 'Fecha de ingreso', 'Direccion'],
+  veterinarian: ['Nombrew', 'Cedula', 'Fecha de registro'],
+  pet: ['Nombre', 'Raza', 'Edad'],
 }
 
 type tableType = {

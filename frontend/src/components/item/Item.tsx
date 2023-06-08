@@ -2,17 +2,20 @@ import React, { useState } from 'react'
 
 const Item = ({
   label,
-  title,
   isEditable = false,
+  editedValue,
+  onValueChange,
 }: {
   label: string
-  title: string
   isEditable?: boolean
+  editedValue?: string
+  onValueChange?: (value: string) => void
 }) => {
-  const [value, setValue] = useState(title)
+  const [value, setValue] = useState(editedValue)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
+    if (onValueChange) onValueChange(e.target.value)
   }
 
   return (

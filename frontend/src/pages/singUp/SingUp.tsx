@@ -34,7 +34,7 @@ const SignUp: React.FC = () => {
         </div>
         <div>
           <div className="mb-4 flex flex-col gap-2">
-            <label htmlFor="full-name">Full name:</label>
+            <label htmlFor="full-name">Nombre completo:</label>
             <input
               type="text"
               id="full-name"
@@ -43,7 +43,7 @@ const SignUp: React.FC = () => {
             />
           </div>
           <div className="mb-4 flex flex-col gap-2">
-            <label htmlFor="id">Password:</label>
+            <label htmlFor="id">Contraseña:</label>
             <input
               type="password"
               id="id"
@@ -52,7 +52,7 @@ const SignUp: React.FC = () => {
             />
           </div>
           <div className="mb-4 flex flex-col gap-2">
-            <label htmlFor="Identification">Identification:</label>
+            <label htmlFor="Identification">Identificacion:</label>
             <input
               type="text"
               id="Identification"

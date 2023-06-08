@@ -18,9 +18,9 @@ const PetDetail = () => {
       <div className="flex flex-col justify-center items-center gap-2 bg-gray-200 p-8">
         <h2 className="font-bold mb-4 text-2xl">Pet with ID: {petId}</h2>
         <div className="mt-10 flex flex-col gap-2">
-          <Item label="Name" title="Kiara" isEditable={isEditing} />
-          <Item label="Breed" title="English Bulldog" isEditable={isEditing} />
-          <Item label="Age" title="5" isEditable={isEditing} />
+          <Item label="Name" isEditable={isEditing} />
+          <Item label="Breed" isEditable={isEditing} />
+          <Item label="Age" isEditable={isEditing} />
         </div>
       </div>
       {isEditing ? (

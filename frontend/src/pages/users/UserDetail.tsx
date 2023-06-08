@@ -1,33 +1,94 @@
 import React, { useState } from 'react'
 import Item from 'components/item/Item'
 import { useParams } from 'react-router-dom'
+import { useGetUserQuery, useUpdateUserMutation } from 'api/users/usersSlice'
+
+type editedValues = {
+  id: string | number
+  nombre: string
+  cedula: string
+  fechaIngreso: string
+  direccion: string
+}
 
 const UserDetail = () => {
   const { userId } = useParams()
   const [isEditing, setIsEditing] = useState(false)
+  const [editedValues, setEditedValues] = useState<editedValues>({
+    id: 0,
+    nombre: '',
+    cedula: '',
+    fechaIngreso: '',
+    direccion: '',
+  })
+  const { data: user, isLoading } = useGetUserQuery(userId ? userId : '')
+  const [updateUser] = useUpdateUserMutation()
+
   const handleEdit = () => {
     setIsEditing(true)
+    if (user) {
+      const initialEditedValues = {
+        id: user.id,
+        nombre: user.nombre,
+        cedula: user.cedula,
+        fechaIngreso: user.fechaIngreso,
+        direccion: user.direccion,
+      }
+      setEditedValues(initialEditedValues)
+    }
   }
 
   const handleSave = () => {
     setIsEditing(false)
-    // call redux store to save
+    const newValues = { ...editedValues }
+    updateUser({ ...newValues })
   }
-  //call redux store to get user detail
+
+  const handleValueChange = (field: keyof editedValues, value: string) => {
+    setEditedValues((prevValues) => ({
+      ...prevValues,
+      [field]: value,
+    }))
+  }
+
   return (
     <div className="flex flex-col items-center gap-5 mt-10">
       <div className="flex flex-col justify-center items-center gap-2 bg-gray-200 p-8">
-        <h2 className="font-bold mb-4 text-2xl">User with ID: {userId}</h2>
-        <div className="mt-10 flex flex-col gap-2">
-          <Item label="Name" title="John Doe" isEditable={isEditing} />
-          <Item
-            label="Identification"
-            title="123456789"
-            isEditable={isEditing}
-          />
-          <Item label="Date of Admission" title="2022-01-01" />
-          <Item label="Direction" title="123 Main St" isEditable={isEditing} />
-        </div>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          user && (
+            <>
+              <h2 className="font-bold mb-4 text-2xl">{user.nombre}</h2>
+              <div className="mt-10 flex flex-col gap-2">
+                <Item
+                  label="Nombre"
+                  isEditable={isEditing}
+                  editedValue={editedValues.nombre || user.nombre}
+                  onValueChange={(value) => handleValueChange('nombre', value)}
+                />
+                <Item
+                  label="Cedula"
+                  isEditable={isEditing}
+                  editedValue={editedValues.cedula || user.cedula}
+                  onValueChange={(value) => handleValueChange('cedula', value)}
+                />
+                <Item
+                  label="Fecha de ingreso"
+                  editedValue={editedValues.fechaIngreso || user.fechaIngreso}
+                />
+                <Item
+                  label="Direccion"
+                  isEditable={isEditing}
+                  editedValue={editedValues.direccion || user.direccion}
+                  onValueChange={(value) =>
+                    handleValueChange('direccion', value)
+                  }
+                />
+              </div>
+            </>
+          )
+        )}
       </div>
       {isEditing ? (
         <button

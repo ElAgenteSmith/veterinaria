@@ -24,17 +24,18 @@ const Table: React.FC<TableProps> = ({ records, type, onDelete }) => {
         </tr>
       </thead>
       <tbody>
-        {records.map((record, index) => (
-          <tr key={index} className="border-b cursor-pointer hover:bg-blue-300">
+        {records?.map((record) => (
+          <tr
+            key={record.id}
+            className="border-b cursor-pointer hover:bg-blue-300"
+          >
             {getColumnValues(record, type).map((value, index) => (
               <td
                 key={index}
                 className="py-2 px-4 "
                 onClick={() => navigate(`${pathname}/${record.id}`)}
               >
-                {value instanceof Date
-                  ? value.toDateString()
-                  : value?.toString()}
+                {value?.toString()}
               </td>
             ))}
             <td className="py-2 px-4 text-center">

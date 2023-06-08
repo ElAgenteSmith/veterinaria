@@ -20,13 +20,9 @@ const VeterinarianDetail = () => {
           Veterinarian with ID: {veterinarianId}
         </h2>
         <div className="mt-10 flex flex-col gap-2">
-          <Item label="Name" title="John Doe" isEditable={isEditing} />
-          <Item
-            label="Identification"
-            title="123456789"
-            isEditable={isEditing}
-          />
-          <Item label="Registration date" title="2022-01-01" />
+          <Item label="Name" isEditable={isEditing} />
+          <Item label="Identification" isEditable={isEditing} />
+          <Item label="Registration date" />
         </div>
       </div>
       {isEditing ? (

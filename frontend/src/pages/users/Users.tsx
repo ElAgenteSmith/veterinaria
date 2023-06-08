@@ -1,47 +1,62 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Table from 'components/table/Table'
+import { useGetUsersQuery, useDeleteUserMutation } from 'api/users/usersSlice'
+import Modal from 'components/modal/Modal'
 
 const Users = () => {
-  //replace data from redux store call
-  const users = [
-    {
-      id: 1,
-      name: 'John Doe',
-      identification: '123456789',
-      dateOfAdmission: new Date('2022-01-01'),
-      direction: '123 Main Street',
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      identification: '987654321',
-      dateOfAdmission: new Date('2021-12-15'),
-      direction: '456 Elm Avenue',
-    },
-    {
-      id: 3,
-      name: 'Robert Johnson',
-      identification: '555555555',
-      dateOfAdmission: new Date('2023-1-30'),
-      direction: '789 Oak Road',
-    },
-  ]
+  const [openModal, setOpenModal] = useState(false)
+  const [deleteUserId, setDeleteUserId] = useState<number | null>(null)
+  const [deleteUser] = useDeleteUserMutation()
+  const {
+    data: users,
+    isLoading,
+    error,
+    isError,
+  } = useGetUsersQuery('getUsers')
 
   const onHandleDelete = (id: number) => {
-    //redux thunk action
-    console.log(`Delete user with id: ${id}`)
+    setOpenModal(true)
+    setDeleteUserId(id)
+  }
+
+  const onHandleReject = () => {
+    setOpenModal(false)
+    setDeleteUserId(null)
+  }
+
+  const onHandleAccept = () => {
+    if (deleteUserId) {
+      deleteUser(deleteUserId)
+    }
+    setDeleteUserId(null)
+    setOpenModal(false)
   }
 
   return (
     <div className="p-20 flex flex-col justify-center align-center gap-10">
       <h1 className="text-4xl font-bold mb-4 text-center">Users</h1>
       <div className="mt-20">
-        <Table
-          records={users}
-          type="user"
-          onDelete={(id) => onHandleDelete(id)}
-        />
+        {isLoading ? (
+          <p>Loading...</p> // spinner
+        ) : (
+          <Table
+            records={users}
+            type="user"
+            onDelete={(id) => onHandleDelete(id)}
+          />
+        )}
+        {isError && <p>{error.toString()}</p>}
       </div>
+      {openModal && (
+        <Modal
+          title="Eliminar usuario"
+          description="Estas a punto de borrar el usuario.. ¿quieres continuar?"
+          onClick={onHandleAccept}
+          acceptLabel="aceptar"
+          rejectLabel="rechazar"
+          onClose={onHandleReject}
+        />
+      )}
     </div>
   )
 }
