@@ -8,7 +8,7 @@ const Item = ({
 }: {
   label: string
   isEditable?: boolean
-  editedValue?: string
+  editedValue?: string | number
   onValueChange?: (value: string) => void
 }) => {
   const [value, setValue] = useState(editedValue)
@@ -23,7 +23,7 @@ const Item = ({
       <strong className="font-medium">{label}: </strong>
       {isEditable ? (
         <input
-          type="text"
+          type={typeof editedValue === 'number' ? 'number' : 'text'}
           value={value}
           onChange={handleChange}
           className="border border-gray-300 px-2 py-1 rounded"

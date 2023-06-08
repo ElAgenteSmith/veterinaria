@@ -1,18 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { rootSlice } from 'api/rootSlice'
 import { UserType } from './users.types'
 
-export const usersSlice = createApi({
-  reducerPath: 'api',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3500',
-  }),
-  tagTypes: ['Users', 'User'],
+const usersSlice = rootSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query<UserType[], string>({
       query: () => '/usuarios',
       transformResponse: (res: UserType[]) =>
         res.sort((a: UserType, b: UserType) =>
-          a.nombre.localeCompare(b.nombre)
+          a.nombreCompleto.localeCompare(b.nombreCompleto)
         ),
       providesTags: ['Users'],
     }),

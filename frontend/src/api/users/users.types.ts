@@ -1,6 +1,6 @@
 export interface UserType {
   id: number
-  nombre: string
+  nombreCompleto: string
   cedula: string
   fechaIngreso: string
   direccion: string

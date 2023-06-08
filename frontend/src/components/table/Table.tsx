@@ -9,7 +9,7 @@ const Table: React.FC<TableProps> = ({ records, type, onDelete }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   return (
-    <table>
+    <table className="shadow-sm">
       <thead>
         <tr>
           {table[type].map((column, index) => (

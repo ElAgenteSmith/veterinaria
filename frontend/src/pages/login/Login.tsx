@@ -22,11 +22,11 @@ const Login: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center  h-full p-10 gap-3  mt-20 border border-gray-500 rounded-md shadow-md hover:bg-white">
-      <h1 className="text-4xl font-bold mb-4">Log In</h1>
+      <h1 className="text-4xl font-bold mb-4">Ingresa</h1>
       <form onSubmit={handleLogin} className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <label htmlFor="user-name" className="mr-2">
-            User Name:
+            Nombre completo:
           </label>
           <input
             type="text"
@@ -37,7 +37,7 @@ const Login: React.FC = () => {
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="password" className="mr-2">
-            Password:
+            Contraseña:
           </label>
           <input
             type="password"
@@ -50,7 +50,7 @@ const Login: React.FC = () => {
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          Log In
+          Ingresar
         </button>
       </form>
     </div>

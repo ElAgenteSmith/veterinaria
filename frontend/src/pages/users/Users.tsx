@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { ClimbingBoxLoader } from 'react-spinners'
 import Table from 'components/table/Table'
 import { useGetUsersQuery, useDeleteUserMutation } from 'api/users/usersSlice'
 import Modal from 'components/modal/Modal'
@@ -34,16 +35,22 @@ const Users = () => {
 
   return (
     <div className="p-20 flex flex-col justify-center align-center gap-10">
-      <h1 className="text-4xl font-bold mb-4 text-center">Users</h1>
-      <div className="mt-20">
+      <h1 className="text-4xl font-bold mb-4 text-center">Usuarios</h1>{' '}
+      {/* agregar icono de usuario */}
+      <div className="mt-10">
         {isLoading ? (
-          <p>Loading...</p> // spinner
+          <ClimbingBoxLoader size={30} color="#364173" loading />
         ) : (
-          <Table
-            records={users}
-            type="user"
-            onDelete={(id) => onHandleDelete(id)}
-          />
+          <div className="flex flex-col gap-10 items-center">
+            <Table
+              records={users}
+              type="user"
+              onDelete={(id) => onHandleDelete(id)}
+            />
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Agregar usuario
+            </button>
+          </div>
         )}
         {isError && <p>{error.toString()}</p>}
       </div>
@@ -52,8 +59,8 @@ const Users = () => {
           title="Eliminar usuario"
           description="Estas a punto de borrar el usuario.. ¿quieres continuar?"
           onClick={onHandleAccept}
-          acceptLabel="aceptar"
-          rejectLabel="rechazar"
+          acceptLabel="Aceptar"
+          rejectLabel="Rechazar"
           onClose={onHandleReject}
         />
       )}

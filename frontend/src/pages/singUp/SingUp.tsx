@@ -16,10 +16,10 @@ const SignUp: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center  h-full p-10 gap-3  mt-20 border border-gray-500 rounded-md shadow-md hover:bg-white">
       <div className="flex flex-col items-center gap-2">
-        <h1 className="text-4xl font-bold mb-10 text-center ">Sign up</h1>
+        <h1 className="text-4xl font-bold mb-10 text-center ">Registrate!</h1>
         <div className="mb-10">
           <label htmlFor="user-type" className="mr-2">
-            User Type:
+            Rol:
           </label>
           <select
             id="user-type"
@@ -27,9 +27,9 @@ const SignUp: React.FC = () => {
             onChange={handleUserTypeChange}
             className="border border-gray-400 rounded py-2 px-4"
           >
-            <option value="">Select User Type</option>
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
+            <option value="">Selecciona el rol</option>
+            <option value="admin">Administrador</option>
+            <option value="user">Usuario</option>
           </select>
         </div>
         <div>
@@ -52,7 +52,7 @@ const SignUp: React.FC = () => {
             />
           </div>
           <div className="mb-4 flex flex-col gap-2">
-            <label htmlFor="Identification">Identificacion:</label>
+            <label htmlFor="Identification">Cédula:</label>
             <input
               type="text"
               id="Identification"
@@ -63,7 +63,7 @@ const SignUp: React.FC = () => {
         </div>
 
         <div className="mb-4 flex flex-col gap-2">
-          <label htmlFor="direction">Direction:</label>
+          <label htmlFor="direction">Dirección:</label>
           <input
             type="text"
             id="direction"
@@ -79,7 +79,7 @@ const SignUp: React.FC = () => {
           disabled={!userType}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          Sign Up
+          Registrarse
         </button>
       </div>
     </div>

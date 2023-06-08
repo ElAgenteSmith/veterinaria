@@ -10,7 +10,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   //call the redux user Session to get the name, also the type
   return (
     <div className="bg-gray-100 min-h-screen">
-      {!hideHeader && <Header userName="Kanmus" type="admin" />}
+      {!hideHeader && <Header userName="Sebastian Gomez Cifuentes" />}
       <div className="container mx-auto p-4  flex justify-center items-center ">
         {children}
       </div>
