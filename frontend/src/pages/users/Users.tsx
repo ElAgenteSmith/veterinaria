@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { ClimbingBoxLoader } from 'react-spinners'
-import Table from 'components/table/Table'
+import { FaPersonBooth } from 'react-icons/fa'
+import { BsPersonLinesFill } from 'react-icons/bs'
 import { useGetUsersQuery, useDeleteUserMutation } from 'api/users/usersSlice'
+import Table from 'components/table/Table'
 import Modal from 'components/modal/Modal'
 
 const Users = () => {
   const [openModal, setOpenModal] = useState(false)
   const [deleteUserId, setDeleteUserId] = useState<number | null>(null)
+  const [createUser, setCreateUser] = useState(false)
   const [deleteUser] = useDeleteUserMutation()
+
   const {
     data: users,
     isLoading,
@@ -35,11 +39,20 @@ const Users = () => {
 
   return (
     <div className="p-20 flex flex-col justify-center align-center gap-10">
-      <h1 className="text-4xl font-bold mb-4 text-center">Usuarios</h1>{' '}
-      {/* agregar icono de usuario */}
-      <div className="mt-10">
+      <div className="flex gap-5 justify-center items-center">
+        <h1 className="text-4xl font-bold mb-4 text-center">
+          {createUser ? 'Crear un nuevo usuario' : 'Usuarios'}
+        </h1>
+        <BsPersonLinesFill size={50} />
+      </div>
+      <div className="mt-10 flex justify-center">
         {isLoading ? (
           <ClimbingBoxLoader size={30} color="#364173" loading />
+        ) : !users?.length ? (
+          <div className="flex justify-center items-center flex-col gap-4">
+            <h1 className="text-2xl">No se encontraron usuarios</h1>
+            <FaPersonBooth size={70} />
+          </div>
         ) : (
           <div className="flex flex-col gap-10 items-center">
             <Table
@@ -47,11 +60,15 @@ const Users = () => {
               type="user"
               onDelete={(id) => onHandleDelete(id)}
             />
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              onClick={() => setCreateUser(true)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hidden"
+            >
               Agregar usuario
             </button>
           </div>
         )}
+
         {isError && <p>{error.toString()}</p>}
       </div>
       {openModal && (

@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Routes as Switch,
+  Navigate,
 } from 'react-router-dom'
 import Welcome from 'pages/welcome/Welcome'
 import SignUp from 'pages/singUp/SingUp'
@@ -14,30 +15,79 @@ import Veterinarians from 'pages/veterinarians/Veterinarians'
 import VeterinarianDetail from 'pages/veterinarians/VeterinarianDetail'
 import Pets from 'pages/pets/Pets'
 import PetDetail from 'pages/pets/PetDetail'
-import NotFound from 'pages/notFound/NotFound'
 import MainLayout from 'layouts/MainLayout'
+import { AuthProvider } from 'state/AuthState'
+import { RequireAuth } from 'state/RequiteAuth'
 
 const Routes: React.FC = () => {
   return (
     <Router>
-      <MainLayout>
-        <Switch>
-          <Route path="" element={<Welcome />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/users/:userId" element={<UserDetail />} />
-          <Route path="/veterinarians" element={<Veterinarians />} />
-          <Route
-            path="/veterinarians/:veterinarianId"
-            element={<VeterinarianDetail />}
-          />
-          <Route path="/pets" element={<Pets />} />
-          <Route path="/pets/:petId" element={<PetDetail />} />
-          <Route path="*" element={<NotFound />} />
-        </Switch>
-      </MainLayout>
+      <AuthProvider>
+        <MainLayout>
+          <Switch>
+            <Route path="" element={<Welcome />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route
+              path="/home"
+              element={
+                <RequireAuth>
+                  <Home />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/users"
+              element={
+                <RequireAuth>
+                  <Users />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/users/:userId"
+              element={
+                <RequireAuth>
+                  <UserDetail />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/veterinarians"
+              element={
+                <RequireAuth>
+                  <Veterinarians />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/veterinarians/:veterinarianId"
+              element={
+                <RequireAuth>
+                  <VeterinarianDetail />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/pets"
+              element={
+                <RequireAuth>
+                  <Pets />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/pets/:petId"
+              element={
+                <RequireAuth>
+                  <PetDetail />
+                </RequireAuth>
+              }
+            />
+            <Route path="*" element={<Navigate to="/home" replace />} />
+          </Switch>
+        </MainLayout>
+      </AuthProvider>
     </Router>
   )
 }

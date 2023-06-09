@@ -19,6 +19,7 @@ export const petsSlice = rootSlice.injectEndpoints({
         method: 'POST',
         body: user,
       }),
+      invalidatesTags: ['Pets'],
     }),
     updatePet: builder.mutation({
       query: (user) => ({
@@ -26,7 +27,7 @@ export const petsSlice = rootSlice.injectEndpoints({
         method: 'PUT',
         body: user,
       }),
-      invalidatesTags: ['Pet'],
+      invalidatesTags: ['Pet', 'Pets'],
     }),
     deletePet: builder.mutation({
       query: (id) => ({

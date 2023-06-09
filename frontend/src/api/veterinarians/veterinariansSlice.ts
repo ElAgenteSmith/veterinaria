@@ -21,6 +21,7 @@ export const veterinarianSlice = rootSlice.injectEndpoints({
         method: 'POST',
         body: user,
       }),
+      invalidatesTags: ['Veterinarians'],
     }),
     updateVeterinarian: builder.mutation({
       query: (user) => ({
@@ -28,7 +29,7 @@ export const veterinarianSlice = rootSlice.injectEndpoints({
         method: 'PUT',
         body: user,
       }),
-      invalidatesTags: ['Veterinarian'],
+      invalidatesTags: ['Veterinarian', 'Veterinarians'],
     }),
     deleteVeterinarian: builder.mutation({
       query: (id) => ({

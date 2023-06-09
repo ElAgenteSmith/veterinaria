@@ -6,6 +6,7 @@ import { useGetUserQuery, useUpdateUserMutation } from 'api/users/usersSlice'
 
 type editedUserValues = {
   id: number | null
+  fechaIngreso: string
   nombreCompleto: string
   cedula: string
   direccion: string
@@ -16,6 +17,7 @@ const UserDetail = () => {
   const [isEditing, setIsEditing] = useState(false)
   const [editedValues, setEditedValues] = useState<editedUserValues>({
     id: null,
+    fechaIngreso: '',
     nombreCompleto: '',
     cedula: '',
     direccion: '',
@@ -26,9 +28,10 @@ const UserDetail = () => {
   const handleEdit = () => {
     setIsEditing(true)
     if (user) {
-      const { nombreCompleto, cedula, direccion, id } = user
+      const { nombreCompleto, cedula, direccion, id, fechaIngreso } = user
       const initialEditedValues = {
         id,
+        fechaIngreso,
         nombreCompleto,
         cedula,
         direccion,

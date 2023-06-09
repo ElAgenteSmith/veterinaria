@@ -21,6 +21,7 @@ const usersSlice = rootSlice.injectEndpoints({
         method: 'POST',
         body: user,
       }),
+      invalidatesTags: ['Users'],
     }),
     updateUser: builder.mutation({
       query: (user) => ({
@@ -28,7 +29,7 @@ const usersSlice = rootSlice.injectEndpoints({
         method: 'PUT',
         body: user,
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['User', 'Users'],
     }),
     deleteUser: builder.mutation({
       query: (id) => ({

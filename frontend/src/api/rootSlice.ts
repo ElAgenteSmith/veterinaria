@@ -4,7 +4,15 @@ const API_URL = 'http://veterinaria.us-east-2.elasticbeanstalk.com'
 
 export const rootSlice = createApi({
   reducerPath: 'api',
-  tagTypes: ['Users', 'User', 'Pets', 'Pet', 'Veterinarians', 'Veterinarian'],
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3500' }),
+  tagTypes: [
+    'Users',
+    'User',
+    'Pets',
+    'Pet',
+    'Veterinarians',
+    'Veterinarian',
+    'Auth',
+  ],
+  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: () => ({}),
 })

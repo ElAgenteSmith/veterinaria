@@ -1,26 +1,49 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useLazyGetAuthQuery } from 'api/auth/auth.slice'
+import { RingLoader } from 'react-spinners'
+import useCreateError from 'hooks/useCreateError'
+import Snackbar from 'components/snackbar/Snackbar'
+import { useAuth } from 'state/AuthState'
 
 const Login: React.FC = () => {
   const userNameRef = useRef<HTMLInputElement>(null)
   const documentNumberRef = useRef<HTMLInputElement>(null)
+  const [createError, updateError] = useCreateError(false)
+  const { logIn } = useAuth()
+  const [getAuthQuery, { data, isLoading, isError }] = useLazyGetAuthQuery()
   const navigate = useNavigate()
 
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault()
-
     const userName = userNameRef.current?.value
     const documentNumber = documentNumberRef.current?.value
     if (!userName || !documentNumber) {
-      //call error state management from redux to return a error
-      console.log('Error')
+      updateError(true)
       return
     }
-    //call user session using redux store
-    navigate('/home')
+    getAuthQuery({ nombreUsuario: userName, password: documentNumber })
   }
 
-  return (
+  useEffect(() => {
+    if (!isLoading && !isError && data) {
+      logIn(data)
+      navigate('/home')
+    }
+  }, [data, isError, isLoading, logIn, navigate])
+
+  useEffect(() => {
+    if (isError) {
+      updateError(true)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError])
+
+  return isLoading ? (
+    <div className="flex justify-center items-center w-full  mt-20">
+      <RingLoader className="" size={600} color="#364173" loading />
+    </div>
+  ) : (
     <div className="flex flex-col items-center justify-center  h-full p-10 gap-3  mt-20 border border-gray-500 rounded-md shadow-md hover:bg-white">
       <h1 className="text-4xl font-bold mb-4">Ingresa</h1>
       <form onSubmit={handleLogin} className="flex flex-col gap-4">
@@ -53,6 +76,7 @@ const Login: React.FC = () => {
           Ingresar
         </button>
       </form>
+      {createError && <Snackbar message="Datos invalidos" />}
     </div>
   )
 }
