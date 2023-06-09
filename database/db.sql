@@ -29,40 +29,21 @@ CREATE TABLE Mascotas (
   Raza VARCHAR(50),
   Edad INT,
   Nombre VARCHAR(50),
-  PRIMARY KEY (MascotaID)
+  UsuarioID INT,
+  PRIMARY KEY (MascotaID),
+  FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID)
 );
 
 -- Crear tabla AtencionPrestada
 CREATE TABLE AtencionPrestada (
   AtencionID INT AUTO_INCREMENT,
   Fecha DATE,
-  VeterinarioID INT,
-  UsuarioID INT,
-  MascotaID INT,
+  Veterinario VARCHAR(50),
+  Usuario VARCHAR(50),
+  Mascota VARCHAR(50),
   Descripcion VARCHAR(100),
   Servicio ENUM('Salud', 'Limpieza'),
-  PRIMARY KEY (AtencionID),
-  FOREIGN KEY (VeterinarioID) REFERENCES Veterinarios(VeterinarioID),
-  FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID),
-  FOREIGN KEY (MascotaID) REFERENCES Mascotas(MascotaID)
-);
-
--- Crear tabla RelacionVeterinarioMascota
-CREATE TABLE RelacionVeterinarioMascota (
-  VeterinarioID INT,
-  MascotaID INT,
-  PRIMARY KEY (VeterinarioID, MascotaID),
-  FOREIGN KEY (VeterinarioID) REFERENCES Veterinarios(VeterinarioID),
-  FOREIGN KEY (MascotaID) REFERENCES Mascotas(MascotaID)
-);
-
--- Crear tabla RelacionUsuarioMascota
-CREATE TABLE RelacionUsuarioMascota (
-  UsuarioID INT,
-  MascotaID INT,
-  PRIMARY KEY (UsuarioID, MascotaID),
-  FOREIGN KEY (UsuarioID) REFERENCES Usuarios(UsuarioID),
-  FOREIGN KEY (MascotaID) REFERENCES Mascotas(MascotaID)
+  PRIMARY KEY (AtencionID)
 );
 
 -- Crear tabla UsuariosAutenticacion
