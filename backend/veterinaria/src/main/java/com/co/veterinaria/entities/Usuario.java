@@ -1,13 +1,15 @@
 package com.co.veterinaria.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -40,12 +42,9 @@ public class Usuario {
     @Column(name = "Direccion")
     private String direccion;
 
-    @ManyToMany
-    @JoinTable(
-            name = "RelacionUsuarioMascota",
-            joinColumns = @JoinColumn(name = "UsuarioID"),
-            inverseJoinColumns = @JoinColumn(name = "MascotaID")
-    )
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "UsuarioID")
+    @JsonBackReference
     private List<Mascota> mascotas;
 
 }
