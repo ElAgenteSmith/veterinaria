@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAddVeterinarianMutation } from 'api/veterinarians/veterinariansSlice'
 import { useAddUserMutation } from 'api/users/usersSlice'
@@ -6,17 +6,25 @@ import { useAddUserAuthMutation } from 'api/auth/auth.slice'
 import useCreateError from 'hooks/useCreateError'
 import Snackbar from 'components/snackbar/Snackbar'
 import { validateDataForm } from 'utils/validateFormValues'
+import { AuthRole, AuthUserType } from 'api/auth/auth.types'
 
 type RoleType = 'Administrador' | 'Usuario'
-type UserType = 'cliente' | 'veterinario'
+type UserRoleType = 'Cliente' | 'Veterinario'
 
 const SignUp: React.FC = () => {
-  const [roleType, setRoleType] = useState<RoleType | ''>('Administrador')
-  const [userType, setUserType] = useState<UserType | ''>('cliente')
+  const [roleType, setRoleType] = useState<RoleType | ''>(AuthRole.ADMIN)
+  const [userType, setUserType] = useState<UserRoleType | ''>(
+    AuthUserType.CLIENT
+  )
+  const [userAuth, setUserAuth] = useState({})
   const [createError, updateError] = useCreateError(false)
   const [createUserAuth] = useAddUserAuthMutation()
-  const [createUser] = useAddUserMutation()
-  const [createUserVeterinarian] = useAddVeterinarianMutation()
+  const [createUser, { data: newUser, isSuccess: isSuccessUser }] =
+    useAddUserMutation()
+  const [
+    createUserVeterinarian,
+    { data: newVeterinarian, isSuccess: isSuccessVet },
+  ] = useAddVeterinarianMutation()
 
   const navigate = useNavigate()
 
@@ -29,7 +37,7 @@ const SignUp: React.FC = () => {
   const handleUserTypeChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setUserType(event.target.value as UserType)
+    setUserType(event.target.value as UserRoleType)
   }
 
   const handleRegisterUser = (event: React.FormEvent<HTMLFormElement>) => {
@@ -40,18 +48,18 @@ const SignUp: React.FC = () => {
       updateError(true)
       return
     }
-    Object.assign(auth, {
-      rol: roleType,
-    })
-    if (roleType === 'Administrador') {
-      createUserAuth(auth)
+
+    if (roleType === AuthRole.ADMIN) {
+      createUserAuth({ rol: AuthRole.ADMIN, ...auth })
       navigate('/login')
       return
     }
 
+    setUserAuth(auth as any)
+
     const user = validateDataForm(
       event,
-      userType === 'cliente' ? 'client' : 'veterinarian'
+      userType === AuthUserType.CLIENT ? 'client' : 'veterinarian'
     )
 
     if (!user) {
@@ -59,19 +67,54 @@ const SignUp: React.FC = () => {
       return
     }
 
-    if (userType === 'cliente') {
+    if (userType === AuthUserType.CLIENT) {
       createUser(user)
-      createUserAuth(auth)
-      navigate('/login')
       return
     }
 
-    if (userType === 'veterinario') {
+    if (userType === AuthUserType.VETERINARIAN) {
       createUserVeterinarian(user)
-      createUserAuth(auth)
-      navigate('/login')
     }
   }
+
+  useEffect(
+    () => {
+      let autenticacionID = null
+      let tipoUsuario = null
+      if (roleType === 'Usuario') {
+        if (userType === 'Cliente' && isSuccessUser) {
+          const { id } = newUser
+          autenticacionID = id
+          tipoUsuario = AuthUserType.CLIENT
+        }
+        if (userType === AuthUserType.VETERINARIAN && isSuccessVet) {
+          const { id } = newVeterinarian
+          autenticacionID = id
+          tipoUsuario = AuthUserType.VETERINARIAN
+        }
+        if (autenticacionID) {
+          const updatedUserAuth = {
+            rol: AuthRole.USER,
+            autenticacionID,
+            tipoUsuario: tipoUsuario,
+            ...userAuth,
+          }
+          createUserAuth(updatedUserAuth)
+          navigate('/login')
+        }
+      }
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      createUser,
+      createUserVeterinarian,
+      newUser,
+      newVeterinarian,
+      isSuccessUser,
+      isSuccessVet,
+      roleType,
+      userAuth,
+    ]
+  )
 
   const opacity = !roleType ? 'opacity-50' : ''
 
@@ -95,7 +138,7 @@ const SignUp: React.FC = () => {
             <option value="Usuario">Usuario</option>
           </select>
         </div>
-        {roleType && roleType !== 'Administrador' && (
+        {roleType && roleType !== AuthRole.ADMIN && (
           <div className="mb-10 flex flex-col gap-2">
             <label htmlFor="user-type" className="mr-2">
               Tipo de usuario:
@@ -105,8 +148,8 @@ const SignUp: React.FC = () => {
               onChange={handleUserTypeChange}
               className="border border-gray-400 rounded py-2 px-4"
             >
-              <option value="veterinario">Veterinario</option>
-              <option value="cliente">Cliente</option>
+              <option value="Veterinario">Veterinario</option>
+              <option value="Cliente">Cliente</option>
             </select>
           </div>
         )}
@@ -141,7 +184,7 @@ const SignUp: React.FC = () => {
             </div>
           )}
         </div>
-        {roleType === 'Usuario' && userType === 'cliente' && (
+        {roleType === 'Usuario' && userType === AuthUserType.CLIENT && (
           <div className="mb-4 flex flex-col gap-2">
             <label htmlFor="direction">Dirección:</label>
             <input
@@ -154,7 +197,7 @@ const SignUp: React.FC = () => {
         {roleType === 'Usuario' && userType && (
           <div className="mb-4 flex flex-col gap-2">
             <label htmlFor="start-date">
-              {userType === 'cliente'
+              {userType === AuthUserType.CLIENT
                 ? 'Fecha de ingreso:'
                 : 'Fecha de registro'}
             </label>

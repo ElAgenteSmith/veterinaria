@@ -3,4 +3,7 @@ export interface PetType {
   nombre: string
   raza: string
   edad: number
+  usuario: {
+    id: number
+  }
 }

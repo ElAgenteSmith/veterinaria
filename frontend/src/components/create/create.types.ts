@@ -7,7 +7,7 @@ export interface CreateProps {
 }
 
 export interface CreateFormProps {
-  type: CreateFormType.USER | CreateFormType.PET | CreateFormType.VETERINARIAN
+  type?: CreateFormType.USER | CreateFormType.PET | CreateFormType.VETERINARIAN
   onCreate: (formData: FormDataType) => void
 }
 
