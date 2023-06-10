@@ -51,5 +51,7 @@ CREATE TABLE UsuariosAutenticacion (
   NombreUsuario VARCHAR(50),
   Password VARCHAR(50),
   Rol ENUM('Administrador', 'Usuario'),
+  TipoUsuario ENUM('Cliente', 'Veterinario'),
+  AutenticacionID INT,
   PRIMARY KEY (NombreUsuario)
 );
