@@ -35,6 +35,10 @@ public class MascotaService {
         return mascotaRepository.findById(id);
     }
 
+    public List<Mascota> obtenerMascotasPorUsuarioId(Long id) {
+        return mascotaRepository.findAllByUsuarioId(id);
+    }
+
     public Mascota actualizarMascota(Mascota mascota) {
         return mascotaRepository.save(mascota);
     }
