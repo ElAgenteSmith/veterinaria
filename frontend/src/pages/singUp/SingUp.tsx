@@ -15,8 +15,8 @@ const SignUp: React.FC = () => {
   const [userType, setUserType] = useState<UserType | ''>('cliente')
   const [createError, updateError] = useCreateError(false)
   const [createUserAuth] = useAddUserAuthMutation()
-  const [createUser] = useAddVeterinarianMutation()
-  const [createUserVeterinarian] = useAddUserMutation()
+  const [createUser] = useAddUserMutation()
+  const [createUserVeterinarian] = useAddVeterinarianMutation()
 
   const navigate = useNavigate()
 
@@ -34,8 +34,8 @@ const SignUp: React.FC = () => {
 
   const handleRegisterUser = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
     const auth = validateDataForm(event, 'auth')
+
     if (!auth) {
       updateError(true)
       return

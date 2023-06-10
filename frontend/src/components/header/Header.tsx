@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { FaCat } from 'react-icons/fa'
 import { MdLogout } from 'react-icons/md'
 import { useAuth } from 'state/AuthState'
+import { AuthRole } from 'api/auth/auth.types'
 
 interface HeaderProps {
   userName: string
@@ -11,7 +12,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ userName }) => {
   const navigate = useNavigate()
-  const { logOut } = useAuth()
+  const { logOut, userAuth } = useAuth()
 
   const handleLogOut = () => {
     logOut()
@@ -29,9 +30,11 @@ const Header: React.FC<HeaderProps> = ({ userName }) => {
           <div className="text-lg">{userName}</div>
         </div>
         <nav className="flex gap-4 items-center">
-          <Link to="/users" className="text-gray-300 hover:text-white">
-            Usuarios
-          </Link>
+          {userAuth?.rol === AuthRole.ADMIN && (
+            <Link to="/users" className="text-gray-300 hover:text-white">
+              Usuarios
+            </Link>
+          )}
           <Link to="/veterinarians" className="text-gray-300 hover:text-white">
             Veterinarios
           </Link>
