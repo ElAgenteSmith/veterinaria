@@ -1,0 +1,523 @@
+{
+	"info": {
+		"_postman_id": "0985835e-de0c-4c0b-9eac-7bb6a039edf2",
+		"name": "Veterinaria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27817085"
+	},
+	"item": [
+		{
+			"name": "Veterinarios",
+			"item": [
+				{
+					"name": "Guardar Veterinario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreCompleto\": \"Pablito\",\r\n    \"cedula\": \"3123123\",\r\n    \"fechaRegistro\": \"2022-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/veterinarios",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"veterinarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los Veterinarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/veterinarios",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"veterinarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Veterinario por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/veterinarios/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"veterinarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Veterinario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreCompleto\": \"Gomez de Jesus\",\r\n    \"cedula\": \"0987654321\",\r\n    \"fechaRegistro\": \"2023-06-03\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/veterinarios/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"veterinarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Veterinario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/veterinarios/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"veterinarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Guardar Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cedula\": \"312313\",\r\n    \"nombreCompleto\": \"Moro\",\r\n    \"fechaIngreso\": \"2023-06-01\",\r\n    \"direccion\": \"Calle Principal 123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos las Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usuarios",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Usuario por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usuarios/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cedula\": \"0987654321\",\r\n    \"nombreCompleto\": \"Para borrar\",\r\n    \"fechaIngreso\": \"2023-06-02\",\r\n    \"direccion\": \"Avenida Principal 456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usuarios/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mascotas",
+			"item": [
+				{
+					"name": "Guardar Mascota",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"raza\": \"Pitbull\",\r\n    \"edad\": 8,\r\n    \"nombre\": \"Malvado\",\r\n    \"usuario\": {\r\n        \"id\": 2\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/mascotas",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"mascotas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todas las Mascotas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/mascotas",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"mascotas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Mascota por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/mascotas/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"mascotas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Mascotas por UsuarioID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/mascotas/usuario/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"mascotas",
+								"usuario",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Mascota",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Karla\",\r\n    \"raza\": \"Maltes\",\r\n    \"edad\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/mascotas/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"mascotas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Mascota",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/mascotas/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"mascotas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Atenciones",
+			"item": [
+				{
+					"name": "Guardar Atencion Prestada",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha\": \"2023-06-01\",\r\n    \"veterinario\": \"Juan Perez\",\r\n    \"usuario\": \"Ana Sanchez\",\r\n    \"mascota\": \"Karla\",\r\n    \"descripcion\": \"Limpieza total\",\r\n    \"servicio\": \"Limpieza\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/atenciones",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"atenciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Atenciones Prestadas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/atenciones",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"atenciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Atencion por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/atenciones/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"atenciones",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Atencion Prestada",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"veterinario\": \"Pedro Gomez\",\r\n    \"usuario\": \"Luisa Ramirez\",\r\n    \"mascota\": \"Luna\",\r\n    \"descripcion\": \"Atención de limpieza\",\r\n    \"servicio\": \"Limpieza\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/atenciones/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"atenciones",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Atencion Prestada",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/atenciones/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"atenciones",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Autenticacion",
+			"item": [
+				{
+					"name": "Guardar Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreUsuario\": \"moro\",\r\n    \"password\": \"123\",\r\n    \"rol\": \"Usuario\",\r\n    \"autenticacionID\": 2,\r\n    \"tipoUsuario\": \"Cliente\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usuarios-autenticacion",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios-autenticacion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Usuario por User y Password",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usuarios-autenticacion/moro/123",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usuarios-autenticacion",
+								"moro",
+								"123"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
