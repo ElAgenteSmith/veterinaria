@@ -18,6 +18,8 @@ import PetDetail from 'pages/pets/PetDetail'
 import MainLayout from 'layouts/MainLayout'
 import { AuthProvider } from 'state/AuthState'
 import { RequireAuth } from 'state/RequiteAuth'
+import GivenAttention from 'pages/givenAttention/GivenAttention'
+import GivenAttentionDetail from 'pages/givenAttention/GivenAttentionDetail'
 
 const Routes: React.FC = () => {
   return (
@@ -33,6 +35,22 @@ const Routes: React.FC = () => {
               element={
                 <RequireAuth>
                   <Home />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/attentions"
+              element={
+                <RequireAuth>
+                  <GivenAttention />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/attentions/:attentionId"
+              element={
+                <RequireAuth>
+                  <GivenAttentionDetail />
                 </RequireAuth>
               }
             />

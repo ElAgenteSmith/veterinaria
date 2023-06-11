@@ -12,6 +12,8 @@ export const rootSlice = createApi({
     'Veterinarians',
     'Veterinarian',
     'Auth',
+    'Attentions',
+    'Attention',
   ],
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: () => ({}),

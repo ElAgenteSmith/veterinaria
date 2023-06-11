@@ -13,6 +13,10 @@ export const petsSlice = rootSlice.injectEndpoints({
       query: (id) => `/mascotas/${id}`,
       providesTags: ['Pet'],
     }),
+    getPetsByUser: builder.query<PetType[], string>({
+      query: (id) => `/mascotas/usuario/${id}`,
+      providesTags: ['Pets'],
+    }),
     addPet: builder.mutation({
       query: (user) => ({
         url: '/mascotas',
@@ -43,6 +47,8 @@ export const petsSlice = rootSlice.injectEndpoints({
 export const {
   useGetPetsQuery,
   useGetPetQuery,
+  useLazyGetPetsByUserQuery,
+  useGetPetsByUserQuery,
   useAddPetMutation,
   useUpdatePetMutation,
   useDeletePetMutation,

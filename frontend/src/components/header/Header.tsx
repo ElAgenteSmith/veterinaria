@@ -27,7 +27,9 @@ const Header: React.FC<HeaderProps> = ({ userName }) => {
             <FaCat />
             <span className="font-bold text-xl">Veterinaria</span>
           </div>
-          <div className="text-lg">{userName}</div>
+          <div className="text-lg font-bold ">
+            {userName.toLocaleUpperCase()}
+          </div>
         </div>
         <nav className="flex gap-4 items-center">
           {userAuth?.rol === AuthRole.ADMIN && (
@@ -35,6 +37,9 @@ const Header: React.FC<HeaderProps> = ({ userName }) => {
               Usuarios
             </Link>
           )}
+          <Link to="/attentions" className="text-gray-300 hover:text-white">
+            Atención prestada
+          </Link>
           <Link to="/veterinarians" className="text-gray-300 hover:text-white">
             Veterinarios
           </Link>

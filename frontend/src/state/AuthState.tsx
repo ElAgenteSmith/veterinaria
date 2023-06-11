@@ -2,19 +2,21 @@ import React, { useContext, useState, createContext, ReactNode } from 'react'
 import { AuthType } from 'api/auth/auth.types'
 import { AUTH } from './const'
 
+type AuthTypeLogin = Omit<AuthType, 'password'>
+
 const AuthContext = createContext<{
-  userAuth: AuthType | null
-  logIn: (user: AuthType) => void
+  userAuth: AuthTypeLogin | null
+  logIn: (user: AuthTypeLogin) => void
   logOut: () => void
 }>(null!)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const userObj: AuthType | null = JSON.parse(
+  const userObj: AuthTypeLogin | null = JSON.parse(
     localStorage.getItem(AUTH) || 'null'
   )
-  const [userAuth, setUserAuth] = useState<AuthType | null>(userObj)
+  const [userAuth, setUserAuth] = useState<AuthTypeLogin | null>(userObj)
 
-  const logIn = (user: AuthType) => {
+  const logIn = (user: AuthTypeLogin) => {
     localStorage.setItem('auth', JSON.stringify(user))
     setUserAuth(user)
   }

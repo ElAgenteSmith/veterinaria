@@ -19,11 +19,13 @@ const SignUp: React.FC = () => {
   const [userAuth, setUserAuth] = useState({})
   const [createError, updateError] = useCreateError(false)
   const [createUserAuth] = useAddUserAuthMutation()
-  const [createUser, { data: newUser, isSuccess: isSuccessUser }] =
-    useAddUserMutation()
+  const [
+    createUser,
+    { data: newUser, isSuccess: isSuccessUser, isError: isClientError },
+  ] = useAddUserMutation()
   const [
     createUserVeterinarian,
-    { data: newVeterinarian, isSuccess: isSuccessVet },
+    { data: newVeterinarian, isSuccess: isSuccessVet, isError: isVetError },
   ] = useAddVeterinarianMutation()
 
   const navigate = useNavigate()
@@ -49,36 +51,38 @@ const SignUp: React.FC = () => {
       return
     }
 
-    if (roleType === AuthRole.ADMIN) {
-      createUserAuth({ rol: AuthRole.ADMIN, ...auth })
-      navigate('/login')
-      return
-    }
+    switch (roleType) {
+      case AuthRole.ADMIN:
+        createUserAuth({ rol: AuthRole.ADMIN, ...auth })
+        navigate('/login')
+        return
 
-    setUserAuth(auth as any)
+      case AuthRole.USER:
+        setUserAuth(auth as any)
+        const user = validateDataForm(
+          event,
+          userType === AuthUserType.CLIENT ? 'client' : 'veterinarian'
+        )
+        if (!user) {
+          updateError(true)
+          return
+        }
+        userType === AuthUserType.CLIENT
+          ? createUser(user)
+          : createUserVeterinarian(user)
+        return
 
-    const user = validateDataForm(
-      event,
-      userType === AuthUserType.CLIENT ? 'client' : 'veterinarian'
-    )
-
-    if (!user) {
-      updateError(true)
-      return
-    }
-
-    if (userType === AuthUserType.CLIENT) {
-      createUser(user)
-      return
-    }
-
-    if (userType === AuthUserType.VETERINARIAN) {
-      createUserVeterinarian(user)
+      default:
+        return null
     }
   }
 
   useEffect(
     () => {
+      if (isVetError || isClientError) {
+        updateError(true)
+        return
+      }
       let autenticacionID = null
       let tipoUsuario = null
       if (roleType === 'Usuario') {
@@ -113,6 +117,8 @@ const SignUp: React.FC = () => {
       isSuccessVet,
       roleType,
       userAuth,
+      isClientError,
+      isVetError,
     ]
   )
 
@@ -215,7 +221,9 @@ const SignUp: React.FC = () => {
         >
           Registrarse
         </button>
-        {createError && <Snackbar message="Debes llenar todos los campos" />}
+        {createError && (
+          <Snackbar message="Debes llenar todos los campos, recuerda que la cedula debe tener maximo 10 caracteres" />
+        )}
       </form>
     </div>
   )

@@ -27,7 +27,12 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (!isLoading && !isError && data) {
-      logIn(data)
+      logIn({
+        autenticacionID: data.autenticacionID,
+        nombreUsuario: data.nombreUsuario,
+        rol: data.rol,
+        tipoUsuario: data.tipoUsuario,
+      })
       navigate('/home')
     }
   }, [data, isError, isLoading, logIn, navigate])

@@ -1,3 +1,4 @@
+import { AttentionType } from 'api/attention/attention.types'
 import { PetType } from 'api/pets/pets.types'
 import { UserType } from 'api/users/users.types'
 import { VeterinarianType } from 'api/veterinarians/veterinarians.types'
@@ -23,6 +24,16 @@ export const getColumnValues = (record: Record, type: string) => {
     case 'pet':
       const pet = record as PetType
       return [pet.nombre, pet.raza, pet.edad]
+    case 'attentions':
+      const attention = record as AttentionType
+      return [
+        attention.fecha,
+        attention.usuario,
+        attention.veterinario,
+        attention.mascota,
+        attention.servicio,
+        attention.descripcion,
+      ]
     default:
       return []
   }
