@@ -54,8 +54,8 @@ public class UsuarioController {
             usuarioExistente.setNombreCompleto(usuario.getNombreCompleto());
             usuarioExistente.setFechaIngreso(usuario.getFechaIngreso());
             usuarioExistente.setDireccion(usuario.getDireccion());
-            usuarioService.actualizarUsuario(usuarioExistente);
-            return ResponseEntity.ok(usuarioExistente);
+            Usuario usuarioActializado = usuarioService.actualizarUsuario(usuarioExistente);
+            return ResponseEntity.ok(usuarioActializado);
         } else {
             return ResponseEntity.notFound().build();
         }
