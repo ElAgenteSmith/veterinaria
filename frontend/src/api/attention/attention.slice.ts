@@ -17,8 +17,9 @@ export const attentionSlice = rootSlice.injectEndpoints({
         method: 'POST',
         body: user,
       }),
+      invalidatesTags: ['Attentions'],
     }),
-    deteteAttention: builder.mutation({
+    deleteAttention: builder.mutation({
       query: (id) => ({
         url: `/atenciones/${id}`,
         method: 'DELETE',
@@ -31,6 +32,6 @@ export const attentionSlice = rootSlice.injectEndpoints({
 export const {
   useAddAttentionMutation,
   useGetAttentionsQuery,
-  useDeteteAttentionMutation,
+  useDeleteAttentionMutation,
   useGetAttentionByIdQuery,
 } = attentionSlice

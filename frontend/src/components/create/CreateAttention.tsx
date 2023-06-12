@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CreateProps } from './create.types'
 import { useGetVeterinariansQuery } from 'api/veterinarians/veterinariansSlice'
 import { BarLoader } from 'react-spinners'
@@ -9,9 +9,12 @@ const CreateAttention = ({ onChange }: CreateProps) => {
   const { userAuth } = useAuth()
   const { data: userPets, isLoading: isUserPetsLoading } =
     useGetPetsByUserQuery(String(userAuth?.autenticacionID))
+  const [service, setService] = useState<
+    'Salud' | 'Limpieza' | 'Escoje por favor una opcion'
+  >('Escoje por favor una opcion')
 
   const [currentUserPet, setCurrentUserPet] = useState<string | null>(
-    userPets ? userPets[0].nombre : null
+    userPets?.length ? userPets[0].nombre : null
   )
 
   const { data: veterinarians, isLoading: isVeterinariansLoading } =
@@ -23,13 +26,37 @@ const CreateAttention = ({ onChange }: CreateProps) => {
 
   const handleVetChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentVeterinarian(event.currentTarget.value)
-    onChange('veterinario', event.currentTarget.value)
   }
 
   const handleUserPetChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentUserPet(event.currentTarget.value)
     onChange('mascota', event.currentTarget.value)
   }
+
+  const HandleServiceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if (event.target.value === 'Salud' || 'Limpieza')
+      setService(event.target.value as 'Salud' | 'Limpieza')
+    onChange('servicio', event.target.value as 'Salud' | 'Limpieza')
+  }
+
+  useEffect(() => {
+    if (veterinarians?.length)
+      onChange(
+        'veterinario',
+        currentVeterinarian || String(veterinarians[0].nombreCompleto)
+      )
+    if (userPets?.length)
+      onChange('mascota', currentUserPet || String(userPets[0].nombre))
+
+    onChange('usuario', String(userAuth?.nombreUsuario))
+  }, [
+    veterinarians,
+    onChange,
+    currentVeterinarian,
+    userPets,
+    currentUserPet,
+    userAuth?.nombreUsuario,
+  ])
 
   return (
     <div className="flex flex-col items-start gap-2">
@@ -83,7 +110,9 @@ const CreateAttention = ({ onChange }: CreateProps) => {
         {isUserPetsLoading ? (
           <BarLoader color="#364173" />
         ) : !userPets?.length ? (
-          <h4>Debes registrar primero una mascota</h4>
+          <h3 className="text-red-500 text-lg font-bold text-center">
+            Debes registrar primero una mascota
+          </h3>
         ) : (
           <select
             value={String(currentUserPet)}
@@ -112,12 +141,15 @@ const CreateAttention = ({ onChange }: CreateProps) => {
         <label htmlFor="service" className="mr-2">
           Servicio
         </label>
-        <input
-          type="text"
-          id="service"
+        <select
+          value={service}
+          onChange={HandleServiceChange}
           className="border border-gray-400 rounded py-2 px-4"
-          onChange={(e) => onChange('servicio', e.target.value)}
-        />
+        >
+          <option value="choose">Escoje por favor una opcion</option>
+          <option value="Salud">Salud</option>
+          <option value="Limpieza">Limpieza</option>
+        </select>
       </div>
     </div>
   )

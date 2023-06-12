@@ -38,73 +38,71 @@ const Table: React.FC<TableProps> = ({ records, type, onDelete }) => {
   }, [pathname, userAuth?.rol, userAuth?.tipoUsuario])
   return (
     <table className="shadow-sm">
-      <thead>
-        <tr>
-          {table[type].map((column, index) => (
-            <th
-              key={index}
-              className="py-2 px-4 bg-gray-200 font-medium text-gray-700 border-b"
-            >
-              {column}
-            </th>
-          ))}
-          <th className="py-2 px-4 bg-gray-200 font-medium text-gray-700 border-b"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {!records?.length ? (
-          <div className="flex justify-center items-center flex-col gap-4">
-            <h1 className="text-2xl">No se encontraron {renderTitle}</h1>
-            {type === 'pet' ? (
-              <SiDatadog size={70} />
-            ) : (
-              <> icono de atenciones</>
-            )}
-          </div>
-        ) : (
-          records?.map((record) => (
-            <tr
-              key={
-                type !== 'attentions'
-                  ? (record as any).id
-                  : (record as any).atencionID
-              }
-              className="border-b cursor-pointer hover:bg-blue-300"
-            >
-              {getColumnValues(record, type).map((value, index) => (
-                <td
+      {!records?.length ? (
+        <div className="flex justify-center items-center flex-col gap-4">
+          <h1 className="text-2xl">No se encontraron {renderTitle}</h1>
+          {type === 'pet' ? <SiDatadog size={70} /> : <> icono de atenciones</>}
+        </div>
+      ) : (
+        <>
+          <thead>
+            <tr>
+              {table[type].map((column, index) => (
+                <th
                   key={index}
-                  className="py-2 px-4 "
-                  onClick={() =>
-                    navigate(
-                      `${pathname}/${
-                        type !== 'attentions'
-                          ? (record as any).id
-                          : (record as any).atencionID
-                      }`
-                    )
-                  }
+                  className="py-2 px-4 bg-gray-200 font-medium text-gray-700 border-b"
                 >
-                  {value?.toString()}
-                </td>
+                  {column}
+                </th>
               ))}
-              <td className="py-2 px-4 text-center">
-                {renderDeleteItem && (
-                  <MdDeleteOutline
+              <th className="py-2 px-4 bg-gray-200 font-medium text-gray-700 border-b"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {records?.map((record) => (
+              <tr
+                key={
+                  type !== 'attentions'
+                    ? (record as any).id
+                    : (record as any).atencionID
+                }
+                className="border-b cursor-pointer hover:bg-blue-300"
+              >
+                {getColumnValues(record, type).map((value, index) => (
+                  <td
+                    key={index}
+                    className="py-2 px-4 "
                     onClick={() =>
-                      onDelete(
-                        type !== 'attentions'
-                          ? (record as any).id
-                          : (record as any).atencionID
+                      navigate(
+                        `${pathname}/${
+                          type !== 'attentions'
+                            ? (record as any).id
+                            : (record as any).atencionID
+                        }`
                       )
                     }
-                  />
-                )}
-              </td>
-            </tr>
-          ))
-        )}
-      </tbody>
+                  >
+                    {value?.toString()}
+                  </td>
+                ))}
+                <td className="py-2 px-4 text-center">
+                  {renderDeleteItem && (
+                    <MdDeleteOutline
+                      onClick={() =>
+                        onDelete(
+                          type !== 'attentions'
+                            ? (record as any).id
+                            : (record as any).atencionID
+                        )
+                      }
+                    />
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </>
+      )}
     </table>
   )
 }

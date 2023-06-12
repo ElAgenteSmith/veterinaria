@@ -9,7 +9,8 @@ import Table from 'components/table/Table'
 import Modal from 'components/modal/Modal'
 import {
   useGetAttentionsQuery,
-  useDeteteAttentionMutation,
+  useDeleteAttentionMutation,
+  useAddAttentionMutation,
 } from 'api/attention/attention.slice'
 
 const GivenAttention = () => {
@@ -17,7 +18,8 @@ const GivenAttention = () => {
   const [deleteAttentionId, setDeleteAttentionId] = useState<number | null>(
     null
   )
-  const [deleteAttention] = useDeteteAttentionMutation()
+  const [addAttention] = useAddAttentionMutation()
+  const [deleteAttention] = useDeleteAttentionMutation()
   const [openModal, setOpenModal] = useState(false)
   const {
     data: attentions,
@@ -25,12 +27,12 @@ const GivenAttention = () => {
     isError,
     error,
   } = useGetAttentionsQuery('getAttentions')
+
   const { userAuth } = useAuth()
 
-  const onHandleCreatePet = (newAttentionForm: any) => {
-    Object.assign(newAttentionForm, {
-      usuario: userAuth?.nombreUsuario,
-    })
+  const onHandleCreateAttention = (attentionForm: any) => {
+    console.log(attentionForm)
+    addAttention(attentionForm)
     setCreateAttention(false)
   }
 
@@ -68,7 +70,7 @@ const GivenAttention = () => {
         {createAttention ? (
           <CreateForm
             type={CreateFormType.ATTENTION}
-            onCreate={onHandleCreatePet}
+            onCreate={onHandleCreateAttention}
           />
         ) : isLoading ? (
           <PropagateLoader size={20} color="#364173" loading />
