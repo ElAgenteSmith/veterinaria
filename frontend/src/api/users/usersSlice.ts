@@ -3,7 +3,7 @@ import { UserType } from './users.types'
 
 const usersSlice = rootSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUsers: builder.query<UserType[], string>({
+    getClients: builder.query<UserType[], string>({
       query: () => '/usuarios',
       transformResponse: (res: UserType[]) =>
         res.sort((a: UserType, b: UserType) =>
@@ -43,7 +43,7 @@ const usersSlice = rootSlice.injectEndpoints({
 })
 
 export const {
-  useGetUsersQuery,
+  useGetClientsQuery,
   useGetUserQuery,
   useAddUserMutation,
   useDeleteUserMutation,

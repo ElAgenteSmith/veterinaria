@@ -6,6 +6,8 @@ import {
   useGetVeterinarianQuery,
   useUpdateVeterinarianMutation,
 } from 'api/veterinarians/veterinariansSlice'
+import { useAuth } from 'state/AuthState'
+import { AuthRole } from 'api/auth/auth.types'
 
 type editedVeterinarianValues = {
   id: number | null
@@ -17,6 +19,9 @@ type editedVeterinarianValues = {
 const VeterinarianDetail = () => {
   const { veterinarianId } = useParams()
   const [isEditing, setIsEditing] = useState(false)
+  const { userAuth } = useAuth()
+  const canEdit = userAuth?.rol === AuthRole.ADMIN ? true : false
+
   const [editedValues, setEditedValues] = useState<editedVeterinarianValues>({
     id: null,
     fechaRegistro: '',
@@ -103,12 +108,14 @@ const VeterinarianDetail = () => {
           Guardar
         </button>
       ) : (
-        <button
-          className="bg-green-500 text-white px-4 py-2 rounded"
-          onClick={handleEdit}
-        >
-          Editar
-        </button>
+        canEdit && (
+          <button
+            className="bg-green-500 text-white px-4 py-2 rounded"
+            onClick={handleEdit}
+          >
+            Editar
+          </button>
+        )
       )}
     </div>
   )

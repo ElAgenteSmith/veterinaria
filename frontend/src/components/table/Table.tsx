@@ -29,7 +29,7 @@ const Table: React.FC<TableProps> = ({ records, type, onDelete }) => {
   }, [type])
 
   const renderDeleteItem = useMemo(() => {
-    if (userAuth?.rol === AuthRole.ADMIN) return true
+    if (userAuth?.rol === AuthRole.ADMIN && pathname !== '/users') return true
     if (
       userAuth?.tipoUsuario === AuthUserType.CLIENT &&
       (pathname === '/pets' || pathname === '/pets:petId')

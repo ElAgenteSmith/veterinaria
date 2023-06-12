@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import { PacmanLoader } from 'react-spinners'
 import Item from 'components/item/Item'
 import { useGetPetQuery, useUpdatePetMutation } from 'api/pets/petsSlice'
+import { useAuth } from 'state/AuthState'
+import { AuthUserType } from 'api/auth/auth.types'
 
 type editedPetsValues = {
   id: number | null
@@ -20,6 +22,7 @@ const PetDetail = () => {
     raza: '',
     edad: 0,
   })
+  const { userAuth } = useAuth()
   const { data: pet, isLoading } = useGetPetQuery(petId ? petId : '')
   const [updatePet] = useUpdatePetMutation()
 
@@ -91,12 +94,14 @@ const PetDetail = () => {
           Guardar
         </button>
       ) : (
-        <button
-          className="bg-green-500 text-white px-4 py-2 rounded"
-          onClick={handleEdit}
-        >
-          Editar
-        </button>
+        userAuth?.tipoUsuario !== AuthUserType.VETERINARIAN && (
+          <button
+            className="bg-green-500 text-white px-4 py-2 rounded"
+            onClick={handleEdit}
+          >
+            Editar
+          </button>
+        )
       )}
     </div>
   )

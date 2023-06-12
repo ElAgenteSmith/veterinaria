@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ClimbingBoxLoader } from 'react-spinners'
 import { FaPersonBooth } from 'react-icons/fa'
 import { BsPersonLinesFill } from 'react-icons/bs'
-import { useGetUsersQuery, useDeleteUserMutation } from 'api/users/usersSlice'
+import { useGetClientsQuery, useDeleteUserMutation } from 'api/users/usersSlice'
 import Table from 'components/table/Table'
 import Modal from 'components/modal/Modal'
 
@@ -17,7 +17,7 @@ const Users = () => {
     isLoading,
     error,
     isError,
-  } = useGetUsersQuery('getUsers')
+  } = useGetClientsQuery('getUsers')
 
   const onHandleDelete = (id: number) => {
     setOpenModal(true)
