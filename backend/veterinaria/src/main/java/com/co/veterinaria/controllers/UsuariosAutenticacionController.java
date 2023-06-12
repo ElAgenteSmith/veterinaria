@@ -1,7 +1,6 @@
 package com.co.veterinaria.controllers;
 
 import com.co.veterinaria.entities.UsuariosAutenticacion;
-import com.co.veterinaria.enums.Rol;
 import com.co.veterinaria.services.UsuariosAutenticacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,6 @@ public class UsuariosAutenticacionController {
 
     @PostMapping
     public ResponseEntity<UsuariosAutenticacion> guardarUsuariosAutenticacion(@RequestBody UsuariosAutenticacion usuariosAutenticacion) {
-        usuariosAutenticacion.setRol(validarRol(usuariosAutenticacion.getRol()));
         UsuariosAutenticacion createdUsuariosAutenticacion = usuariosAutenticacionService.guardarUsuarioAutenticacion(usuariosAutenticacion);
         return new ResponseEntity<>(createdUsuariosAutenticacion, HttpStatus.CREATED);
     }
@@ -35,15 +33,6 @@ public class UsuariosAutenticacionController {
             return ResponseEntity.ok(usuario);
         } else {
             return ResponseEntity.notFound().build();
-        }
-    }
-
-    public Rol validarRol(Rol rol) {
-        String rolLowerCase = String.valueOf(rol).toLowerCase();
-        if ("administrador".equals(rolLowerCase)) {
-            return Rol.Administrador;
-        } else {
-            return Rol.Usuario;
         }
     }
 }

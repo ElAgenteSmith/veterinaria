@@ -16,18 +16,12 @@ public class AtencionPrestada {
 
     private LocalDate fecha;
     private String descripcion;
+    private String veterinario;
+    private String usuario;
+    private String mascota;
+
     @Enumerated(EnumType.STRING)
     private Servicio servicio;
-    
-    @ManyToOne
-    @JoinColumn(name = "VeterinarioID")
-    private Veterinario veterinario;
-    @ManyToOne
-    @JoinColumn(name = "UsuarioID")
-    private Usuario usuario;
-    @ManyToOne
-    @JoinColumn(name = "MascotaID")
-    private Mascota mascota;
 
 
     @PrePersist

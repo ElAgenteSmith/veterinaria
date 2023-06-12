@@ -21,7 +21,7 @@ public class MascotaController {
         this.mascotaService = mascotaService;
     }
 
-    @PostMapping
+    @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<Mascota> guardarMascota(@RequestBody Mascota mascota) {
         Mascota nuevaMascota = mascotaService.guardarMascota(mascota);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaMascota);
@@ -36,6 +36,12 @@ public class MascotaController {
     @GetMapping({"/{id}"})
     public ResponseEntity<Mascota> obtenerMascotaPorId(@PathVariable("id") Long id) {
         return mascotaService.obtenerMascotaPorId(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<Mascota>> obtenerMascotasPorUsuarioId(@PathVariable("usuarioId") Long usuarioId) {
+        List<Mascota> mascotas = mascotaService.obtenerMascotasPorUsuarioId(usuarioId);
+        return ResponseEntity.ok(mascotas);
     }
 
     @PutMapping("/{id}")

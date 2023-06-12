@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "Veterinarios")
@@ -23,13 +22,5 @@ public class Veterinario {
 
     @Column(name = "NombreCompleto")
     private String nombreCompleto;
-
-    @ManyToMany
-    @JoinTable(
-            name = "RelacionVeterinarioMascota",
-            joinColumns = @JoinColumn(name = "VeterinarioID"),
-            inverseJoinColumns = @JoinColumn(name = "MascotaID")
-    )
-    private List<Mascota> mascotas;
 
 }

@@ -1,20 +1,19 @@
 package com.co.veterinaria.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Usuarios")
@@ -40,13 +39,9 @@ public class Usuario {
     @Column(name = "Direccion")
     private String direccion;
 
-    @ManyToMany
-    @JoinTable(
-            name = "RelacionUsuarioMascota",
-            joinColumns = @JoinColumn(name = "UsuarioID"),
-            inverseJoinColumns = @JoinColumn(name = "MascotaID")
-    )
-    private List<Mascota> mascotas;
+    @OneToMany(mappedBy = "usuario")
+    @JsonManagedReference
+    private Set<Mascota> mascota;
 
 }
 
